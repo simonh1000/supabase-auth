@@ -1,4 +1,5 @@
 <script lang="ts">
+	// signin/+page.svelte
 	import type { LayoutData } from '../$types';
 
 	export let data: LayoutData;

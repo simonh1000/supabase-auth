@@ -53,18 +53,19 @@ export const load: LayoutLoad = async ({ fetch, data, depends, ...rest }) => {
 		console.log('+layout.ts has session or isCode');
 		// not sure why supabase does not have the session already, but...
 		// returns supabase for client code
-		let res = await supabase
-			.from('players')
-			.select()
-			.eq('id', session?.user.id)
-			.single();
+		// let res = await supabase
+		// 	.from('players')
+		// 	.select()
+		// 	.eq('id', session?.user.id)
+		// 	.single();
 
-		if (res.error) {
-			// this is unexpected because the DB trigger creates a basic player record
-			throw error(500);
-		}
+		// if (res.error) {
+		// 	console.error('+layout.ts session || isCode', res.error);
+		// 	// this is unexpected because the DB trigger creates a basic player record
+		// 	throw error(500);
+		// }
 
-		return { supabase, session, player: res.data };
+		return { supabase, session, player: null };
 	}
 	if (isSignin) {
 		console.log(`+layout.ts isSignin == true`);

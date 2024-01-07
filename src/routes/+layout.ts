@@ -65,11 +65,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends, ...rest }) => {
 		// 	throw error(500);
 		// }
 
-		return { supabase, session, player: null };
+		return { supabase, session };
 	}
 	if (isSignin) {
 		console.log(`+layout.ts isSignin == true`);
-		return { supabase, session, player: null };
+		return { supabase, session };
 	}
 
 	console.log(`+layout.ts redirecting ${rest.url.pathname} => /signin`);

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
-	import Signin from '$lib/Signin.svelte';
 
 	export let data: LayoutData;
 

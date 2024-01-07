@@ -40,9 +40,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		//   // this runs right after the callback has finished
 		// }, 0)
 	});
+
 	console.log('+layout.ts session?', session !== null);
 
-	const isSignin = url.pathname === '/signin';
+	const signIn = '/auth/signin';
+	const isSignin = url.pathname === signIn;
 	// code occurs on the callback from the signin process
 	const isCode = url.searchParams.has('code');
 
@@ -63,6 +65,6 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	}
 
 	// session is null, so user must login
-	console.log(`+layout.ts redirecting ${url.pathname} => /signin`);
-	throw redirect(307, '/signin');
+	console.log(`+layout.ts redirecting ${url.pathname} => ${signIn}`);
+	throw redirect(307, signIn);
 };

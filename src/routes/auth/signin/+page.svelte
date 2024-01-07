@@ -1,6 +1,6 @@
 <script lang="ts">
 	// /signin/+page.svelte
-	import type { LayoutData } from '../$types';
+	import type { LayoutData } from '../../$types';
 
 	export let data: LayoutData;
 	console.log('/signin/+page.svelte: LayoutData', Object.keys(data));

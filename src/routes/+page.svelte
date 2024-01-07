@@ -20,12 +20,13 @@
 	}
 </script>
 
-<h1>+page: we have a session, and are loading the user</h1>
-<div class="submenu">
+<header>
 	<!-- Session: {JSON.stringify(data.session)} -->
 	<img src={data.session?.user.user_metadata.avatar_url} alt="" />
 	<button on:click={signout}>Sign Out</button>
-</div>
+</header>
+
+<h1>+page: we have a session, and are loading the user</h1>
 
 {#if player === null}
 	{JSON.stringify(player)}
@@ -38,3 +39,11 @@
 {:else}
 	<button on:click={testGet}>Test Get</button>
 {/if}
+
+<style>
+	header {
+		background-color: aquamarine;
+		display: flex;
+		justify-content: space-between;
+	}
+</style>

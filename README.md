@@ -1,26 +1,6 @@
 # create-svelte
 
-hooks.server.ts
-
-- supabase/ssr/createServerClient
-- attaches getSession to `locals`
-
-+layout.server.ts
-
-- gets session and returns { session }
-
-+layout.ts
-
-- supabase/createBrowserClient
-- attaches to returned data
-
-## Not signed in
-
-+layout.ts
-+layout.svelte
-/lib/signin.svelte
-
-## Signed in
+See ....
 
 ## Developing
 

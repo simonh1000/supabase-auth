@@ -1,12 +1,12 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { error, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 import { createBrowserClient, isBrowser, parse } from '@supabase/ssr';
 
-export const load: LayoutLoad = async ({ fetch, data, depends, ...rest }) => {
+export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	depends('supabase:auth');
-	console.log('+layout.ts data.session', Object.keys(data.session || {}));
-	console.log('+layout.ts url', rest.url);
+	console.log('+layout.ts data.session?', data.session !== null);
+	console.log('+layout.ts url', url.pathname, url.searchParams);
 
 	const supabase = createBrowserClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		global: {
@@ -24,13 +24,13 @@ export const load: LayoutLoad = async ({ fetch, data, depends, ...rest }) => {
 		}
 	});
 
-	// note: not using the version in exports
+	// note: not using the (server-side) version in exports
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();
 
 	supabase.auth.onAuthStateChange((event, session) => {
-		console.log('onAuthStateChange', event);
+		console.log('+layout.ts onAuthStateChange', event);
 		if (event === 'SIGNED_OUT') {
 			location.reload();
 		}
@@ -40,38 +40,29 @@ export const load: LayoutLoad = async ({ fetch, data, depends, ...rest }) => {
 		//   // this runs right after the callback has finished
 		// }, 0)
 	});
-	console.log('+layout.ts session', Object.keys(session || {}));
+	console.log('+layout.ts session?', session !== null);
 
-	const isSignin = rest.url.pathname === '/signin';
-	const isCode = rest.url.searchParams.has('code');
+	const isSignin = url.pathname === '/signin';
+	// code occurs on the callback from the signin process
+	const isCode = url.searchParams.has('code');
 
 	if (session && isSignin) {
+		// we do not need to signin, perhaps something to do with...?
 		console.log('+layout.ts redirecting /signin => /');
 		throw redirect(307, '/');
 	}
 	if (session || isCode) {
+		// either we are already good, or the code has just arrived which will be converted into a session (where?)
 		console.log('+layout.ts has session or isCode');
-		// not sure why supabase does not have the session already, but...
-		// returns supabase for client code
-		// let res = await supabase
-		// 	.from('players')
-		// 	.select()
-		// 	.eq('id', session?.user.id)
-		// 	.single();
-
-		// if (res.error) {
-		// 	console.error('+layout.ts session || isCode', res.error);
-		// 	// this is unexpected because the DB trigger creates a basic player record
-		// 	throw error(500);
-		// }
-
 		return { supabase, session };
 	}
 	if (isSignin) {
+		// session is null
 		console.log(`+layout.ts isSignin == true`);
 		return { supabase, session };
 	}
 
-	console.log(`+layout.ts redirecting ${rest.url.pathname} => /signin`);
+	// session is null, so user must login
+	console.log(`+layout.ts redirecting ${url.pathname} => /signin`);
 	throw redirect(307, '/signin');
 };

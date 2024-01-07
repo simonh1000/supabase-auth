@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 
 // this is a route that supabase calls?
 export const GET = async (event) => {
+	console.log('/auth/callback/+server.ts', event);
 	const {
 		url,
 		locals: { supabase }

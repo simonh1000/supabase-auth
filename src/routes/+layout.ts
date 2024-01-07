@@ -57,7 +57,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	if (session || isCode) {
 		// either we already have a session, or
 		// the code has just arrived which will be converted into a session (where?)
-		console.log('+layout.ts session || isCode', session);
+		console.log('+layout.ts session || isCode', session !== null);
 		// NOTE we do not for certain have the session here so we cannot
 		// let res = await getPlayer(supabase, session);
 		return { supabase, session };

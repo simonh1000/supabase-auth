@@ -1,4 +1,5 @@
-import type { Actions, PageServerLoad } from './$types';
+import { error, redirect } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
 // export const load: PageServerLoad = async ({ url, params, parent }) => {
 // 	// console.log('+page.server.ts', Object.keys(data));
@@ -10,17 +11,29 @@ import type { Actions, PageServerLoad } from './$types';
 // 	return {};
 // };
 
-// Seems to be a login form handler
+// works with the <form>s on the pages
 export const actions: Actions = {
-	default: async (event) => {
+	set_intro: async (event) => {
 		const {
 			request,
-			url,
-			locals: { supabase }
+			locals: { supabase, getSession }
 		} = event;
+
+		// should be available as was used to create supabase!
+		const session = await getSession();
+		if (session === null) {
+			throw redirect(301, '/auth/signin');
+		}
+
+		// inspect form data
 		const formData = await request.formData();
-		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
-		console.log({ email, password });
+		const intro = formData.get('intro') as string;
+
+		const res = await supabase.from('players').update({ intro }).eq('id', session.user.id);
+		if (res.error) {
+			throw error(500, 'supabase error');
+		}
+		// redirect to same page, which causes player to be re-read with the updated info
+		throw redirect(301, '/');
 	}
 };

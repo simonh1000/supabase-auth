@@ -40,11 +40,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	 * SH: uses a serverClient
 	 */
 	event.locals.getSession = async () => {
-		console.log('hooks.server.ts event.locals.getSession');
 		const {
 			data: { session }
 		} = await event.locals.supabase.auth.getSession();
-		console.log('hooks.server.ts event.locals.getSession', session);
+		console.log('hooks.server.ts event.locals.getSession session?', session !== null);
 		return session;
 	};
 

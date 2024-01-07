@@ -3,7 +3,7 @@
 
 	export let data: LayoutData;
 
-	console.log('+layout.svelte data:', Object.keys(data));
+	console.log('+layout.svelte session?', data.session !== null);
 	// let page = data.session ? (data?.player?.intro ? 'loaded' : 'postauth') : 'login';
 </script>
 

@@ -1,4 +1,5 @@
 import type { PageLoad } from './$types';
+import { getPlayer } from '$lib';
 
 export const load: PageLoad = async ({ url, parent }) => {
 	console.log('+page.ts: url', { p: url.pathname, params: url.searchParams });
@@ -8,11 +9,7 @@ export const load: PageLoad = async ({ url, parent }) => {
 
 	console.log('+page.ts session?', session !== null);
 	if (session) {
-		let { data, error } = await supabase
-			.from('players')
-			.select()
-			.eq('id', session.user.id)
-			.single();
+		let { data, error } = await getPlayer(supabase, session);
 
 		console.log('+page.ts player', data);
 		if (error) {

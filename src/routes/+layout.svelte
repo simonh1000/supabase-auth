@@ -5,7 +5,6 @@
 
 	console.log('+layout.svelte data:', Object.keys(data));
 	// let page = data.session ? (data?.player?.intro ? 'loaded' : 'postauth') : 'login';
-	// this logs on the server!
 </script>
 
 <h1>Layout</h1>

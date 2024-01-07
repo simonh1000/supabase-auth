@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import PostAuth from '$lib/PostAuth.svelte';
 
 	// A +page.svelte component defines a page of your app.
 	// By default, pages are rendered both on the server (SSR) for the initial request and in the browser (CSR) for subsequent navigation.
@@ -32,10 +33,7 @@
 	{JSON.stringify(player)}
 	Loading
 {:else if player.intro === null}
-	<div>
-		{JSON.stringify(player)}
-	</div>
-	<h2>Intro</h2>
+	<PostAuth {player} />
 {:else}
 	<button on:click={testGet}>Test Get</button>
 {/if}

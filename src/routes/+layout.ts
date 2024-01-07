@@ -2,6 +2,7 @@ import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/publi
 import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 import { createBrowserClient, isBrowser, parse } from '@supabase/ssr';
+import { getPlayer } from '$lib';
 
 export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	depends('supabase:auth');
@@ -54,8 +55,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		throw redirect(307, '/');
 	}
 	if (session || isCode) {
-		// either we are already good, or the code has just arrived which will be converted into a session (where?)
-		console.log('+layout.ts has session or isCode');
+		// either we already have a session, or
+		// the code has just arrived which will be converted into a session (where?)
+		console.log('+layout.ts session || isCode');
+		// NOTE we do not for certain have the session here so we cannot
+		// let res = await getPlayer(supabase, session);
 		return { supabase, session };
 	}
 	if (isSignin) {

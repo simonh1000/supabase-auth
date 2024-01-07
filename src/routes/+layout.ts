@@ -42,18 +42,18 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		// }, 0)
 	});
 
-	const signIn = '/auth/signin';
+	const signIn = '/signin';
 	const isSignin = url.pathname === signIn;
 	// code occurs on the callback from the signin process
 	const isCode = url.searchParams.has('code');
 
 	console.log('+layout.ts session?', session !== null);
 
-	if (session && isSignin) {
-		// we do not need to signin, perhaps something to do with...?
-		console.log('+layout.ts redirecting /signin => /');
-		throw redirect(307, '/');
-	}
+	// if (session && isSignin) {
+	// 	// we do not need to signin, perhaps something to do with...?
+	// 	console.log('+layout.ts redirecting /signin => /');
+	// 	throw redirect(307, '/');
+	// }
 	if (session || isCode) {
 		// either we already have a session, or
 		// the code has just arrived which will be converted into a session (where?)

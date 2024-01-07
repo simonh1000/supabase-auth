@@ -21,7 +21,7 @@
 		}
 		// update local version
 		// next time page loads, it will have this field
-		player = { ...player, intro: val.detail };
+		player = { ...player, intro: val.detail || '' };
 		console.log('setIntro', val);
 	}
 
@@ -33,27 +33,13 @@
 	}
 </script>
 
-<header>
-	<!-- Session: {JSON.stringify(data.session)} -->
-	<img src={data.session?.user.user_metadata.avatar_url} alt="" />
-	<button on:click={signout}>Sign Out</button>
-</header>
+<h1>+page: we have a session</h1>
+<button on:click={signout}>Sign Out</button>
 
-<h1>+page: we have a session, and are loading the user</h1>
-
-{#if player === null}
-	<h1>Loading</h1>
-	{JSON.stringify(player)}
-{:else if player.intro === null}
+{#if player.intro === null}
+	<h2>Player withOUT intro</h2>
 	<PostAuth {player} on:set-intro={setIntro} />
 {:else}
+	<h2>Player with intro</h2>
 	<button on:click={testGet}>Test Get</button>
 {/if}
-
-<style>
-	header {
-		background-color: aquamarine;
-		display: flex;
-		justify-content: space-between;
-	}
-</style>

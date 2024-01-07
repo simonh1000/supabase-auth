@@ -1,4 +1,6 @@
+import { error, redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+
 import { getPlayer } from '$lib';
 
 export const load: PageLoad = async ({ url, parent }) => {
@@ -9,16 +11,14 @@ export const load: PageLoad = async ({ url, parent }) => {
 
 	console.log('+page.ts session?', session !== null);
 	if (session) {
-		let { data, error } = await getPlayer(supabase, session);
-
-		console.log('+page.ts player', data);
-		if (error) {
-			console.error('+page.ts error', error);
-			// what now?
-			return { player: null };
-		} else {
-			return { player: data };
-		}
+		return getPlayer(supabase, session)
+			.then((player) => {
+				return { player };
+			})
+			.catch((err) => {
+				console.error('+page.ts error', err);
+				throw error(500, err);
+			});
 	}
-	return { player: null };
+	throw redirect(301, '/signin');
 };

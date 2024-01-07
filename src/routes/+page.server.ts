@@ -22,7 +22,7 @@ export const actions: Actions = {
 		// should be available as was used to create supabase!
 		const session = await getSession();
 		if (session === null) {
-			throw redirect(301, '/auth/signin');
+			throw redirect(301, '/signin');
 		}
 
 		// inspect form data

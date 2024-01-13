@@ -23,5 +23,6 @@
 		background-color: aquamarine;
 		display: flex;
 		justify-content: space-between;
+		height: 60px;
 	}
 </style>

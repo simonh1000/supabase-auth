@@ -1,24 +1,8 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
-import { redirect, type Handle } from '@sveltejs/kit';
+import { type Handle } from '@sveltejs/kit';
 
-// const authorization: Handle = async ({ event, resolve }) => {
-// 	// Protect any route
-// 	if (
-// 		event.url.pathname !== '/auth/signin' &&
-// 		event.url.pathname !== '/auth/signin/google' &&
-// 		event.url.pathname !== '/auth/callback/google'
-// 	) {
-// 		const session = await event.locals.getSession();
-// 		if (!session) {
-// 			throw redirect(303, '/auth/signin');
-// 		}
-// 	}
-
-// 	// If the request is still here, just proceed as normally
-// 	return resolve(event);
-// };
-
+// form supabase docs
 export const handle: Handle = async ({ event, resolve }) => {
 	console.log('hooks.server.ts');
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {

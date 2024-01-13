@@ -11,7 +11,7 @@
 			provider: 'google'
 			// unclear why it works without this
 			// options: {
-			// 	redirectTo: `http://example.com/auth/callback`
+			// 	redirectTo: `http://127.0.0.1:54321/auth/v1/callback`
 			// }
 		});
 		console.log('signin');

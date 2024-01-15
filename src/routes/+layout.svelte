@@ -12,7 +12,9 @@
 	{#if data.session}
 		<img src={data.session?.user.user_metadata.avatar_url} alt="avatar" />
 	{/if}
-	{title}
+	<div class="title">
+		{title}
+	</div>
 	<img src="https://moljagers.vercel.app/demol192.png" alt="mol-icon" />
 </header>
 
@@ -23,6 +25,13 @@
 		background-color: aquamarine;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		height: 60px;
+	}
+	img {
+		height: 100%;
+	}
+	.title {
+		margin-left: 20px;
 	}
 </style>

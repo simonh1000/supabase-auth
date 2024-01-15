@@ -24,22 +24,16 @@
 		player = { ...player, intro: val.detail || '' };
 		console.log('setIntro', val);
 	}
-
-	function testGet() {
-		fetch('/')
-			.then((res) => res.text())
-			.then(console.log)
-			.catch(console.error);
-	}
 </script>
 
-<h1>+page: we have a session</h1>
 <button on:click={signout}>Sign Out</button>
+<h1>/+page.ts: we have a session</h1>
 
 {#if player.intro === null}
 	<h2>Player withOUT intro</h2>
 	<PostAuth {player} on:set-intro={setIntro} />
 {:else}
 	<h2>Player with intro</h2>
-	<button on:click={testGet}>Test Get</button>
+
+	<!-- {JSON.stringify(data.session)} -->
 {/if}

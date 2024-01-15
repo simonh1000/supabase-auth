@@ -1,17 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
-// export const load: PageServerLoad = async ({ url, params, parent }) => {
-// 	// console.log('+page.server.ts', Object.keys(data));
-// 	// console.log('+page.server.ts: url', data.url);
-
-// 	// returns data from parent +layout.server.js load functions.
-// 	const { session } = await parent();
-
-// 	return {};
-// };
-
-// works with the <form>s on the pages
+// handler for PostAuth component
 export const actions: Actions = {
 	set_intro: async (event) => {
 		const {
@@ -33,7 +23,7 @@ export const actions: Actions = {
 		if (res.error) {
 			throw error(500, 'supabase error');
 		}
-		// redirect to same page, which causes player to be re-read with the updated info
+		// All good! redirect to "/", which causes player to be re-read with the updated info
 		throw redirect(301, '/');
 	}
 };

@@ -15,7 +15,7 @@
 	<div class="title">
 		{title}
 	</div>
-	<img src="https://moljagers.vercel.app/demol192.png" alt="mol-icon" />
+	<img src="/fingerprint.svg" alt="icon" />
 </header>
 
 <slot />

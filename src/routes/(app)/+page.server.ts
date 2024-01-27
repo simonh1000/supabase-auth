@@ -1,5 +1,5 @@
 import { error, redirect } from '@sveltejs/kit';
-import type { Actions } from './$types';
+import type { Actions } from '../$types';
 
 // handler for PostAuth component
 export const actions: Actions = {

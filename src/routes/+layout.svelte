@@ -5,7 +5,6 @@
 
 	console.log('+layout.svelte session?', data.session !== null);
 	$: title = data.session === null ? 'Sign In' : 'Logged In!';
-	// let page = data.session ? (data?.player?.intro ? 'loaded' : 'postauth') : 'login';
 </script>
 
 <header>

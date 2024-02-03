@@ -1,7 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
 export const load = async (event) => {
-	console.log('/signin/+page.ts');
 	const { session } = await event.parent();
 	console.log('/signin/+page.ts session?', session !== null);
 

@@ -1,18 +1,22 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
-import { type Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
-// form supabase docs
 export const handle: Handle = async ({ event, resolve }) => {
-	console.log('hooks.server.ts');
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		cookies: {
 			get: (key) => event.cookies.get(key),
+			/**
+			 * Note: You have to add the `path` variable to the
+			 * set and remove method due to sveltekit's cookie API
+			 * requiring this to be set, setting the path to an empty string
+			 * will replicate previous/standard behaviour (https://kit.svelte.dev/docs/types#public-types-cookies)
+			 */
 			set: (key, value, options) => {
-				event.cookies.set(key, value, options);
+				event.cookies.set(key, value, { ...options, path: '' });
 			},
 			remove: (key, options) => {
-				event.cookies.delete(key, options);
+				event.cookies.delete(key, { ...options, path: '' });
 			}
 		}
 	});
@@ -21,13 +25,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	 * a little helper that is written for convenience so that instead
 	 * of calling `const { data: { session } } = await supabase.auth.getSession()`
 	 * you just call this `await getSession()`
-	 * SH: uses a serverClient
 	 */
 	event.locals.getSession = async () => {
 		const {
 			data: { session }
 		} = await event.locals.supabase.auth.getSession();
-		console.log('hooks.server.ts event.locals.getSession session?', session !== null);
 		return session;
 	};
 

@@ -55,7 +55,6 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		// the code has just arrived which will be converted into a session (where?)
 		console.log('+layout.ts', { 'session?': session !== null, isCode });
 		// NOTE we do not for certain have the session here so we cannot
-		// let res = await getPlayer(supabase, session);
 		return { supabase, session };
 	}
 

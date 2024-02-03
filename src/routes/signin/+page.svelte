@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	// /signin/+page.svelte
 	import type { LayoutData } from '../$types';
 

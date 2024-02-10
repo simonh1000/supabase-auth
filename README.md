@@ -1,4 +1,4 @@
-# create-svelte
+# Simple SvelteKit app to experiement with Supabase SSR auth
 
 See ....
 

@@ -13,6 +13,8 @@ npm run dev
 npm run dev -- --open
 ```
 
+### Local DB
+
 ## Building
 
 To create a production version of your app:

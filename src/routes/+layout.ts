@@ -47,12 +47,14 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	const isCode = url.searchParams.has('code');
 
 	console.log('+layout.ts session?', session !== null);
+	return { supabase, session };
 
-	// if (session && isSignin) {
-	// 	// we do not need to signin, perhaps something to do with...?
-	// 	console.log('+layout.ts redirecting /signin => /');
-	// 	throw redirect(307, '/');
-	// }
+	if (isSignin) {
+		// On the server side, this might the return from auth with `?code=abc123`
+		// this can only be consumed by the client side so we must pass through everything
+		console.log('+layout.ts /signin');
+		return { supabase, session };
+	}
 
 	if (session || isCode) {
 		// either we already have a session, or

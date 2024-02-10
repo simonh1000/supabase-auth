@@ -1,13 +1,14 @@
 import { redirect } from '@sveltejs/kit';
 
-// this is a route that supabase calls?
-// UNUSED at present
+// this is the callback route that supabase calls after an oAuth sign in
+// Its role is to convert the auth code into a session (and cookie, and token,...)
+
 export const GET = async (event) => {
-	console.log('/auth/callback/+server.ts', event);
 	const {
 		url,
 		locals: { supabase }
 	} = event;
+	console.log('/auth/callback/+server.ts', url);
 	const code = url.searchParams.get('code') as string;
 	// if "next" is in param, use it as the redirect URL
 	const next = url.searchParams.get('next') ?? '/';

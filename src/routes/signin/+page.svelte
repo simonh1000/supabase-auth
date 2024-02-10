@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	// /signin/+page.svelte
 	import type { LayoutData } from '../$types';
 
@@ -10,13 +8,14 @@
 
 	const signin = () => {
 		supabase.auth.signInWithOAuth({
-			provider: 'google'
-			// unclear why it works without this
-			// options: {
-			// 	redirectTo: `http://127.0.0.1:54321/auth/v1/callback`
-			// }
+			provider: 'google',
+			options: {
+				redirectTo: `http://127.0.0.1:5173/auth/callback`
+				// can't recall where I got the idea that it should return to supabase, rather than client
+				// redirectTo: `http://127.0.0.1:54321/auth/v1/callback`
+			}
 		});
-		goto('/');
+		// goto('/');
 		console.log('signin');
 	};
 </script>

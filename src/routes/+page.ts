@@ -6,7 +6,7 @@ import { getPlayer } from '$lib';
 export const load: PageLoad = async ({ url, parent }) => {
 	console.log('+page.ts: url', { p: url.pathname, params: url.searchParams });
 
-	// During a signin start, this file loaded early, but `await parent` allows supabase+session to be ready
+	// During a signin start, this file loaded early, but `await parent` _should_ allow supabase+session to be ready
 	const { session, supabase } = await parent();
 
 	console.log('+page.ts session?', session !== null);
@@ -18,4 +18,5 @@ export const load: PageLoad = async ({ url, parent }) => {
 	}
 	// no session => need to login
 	throw redirect(301, '/signin');
+	// return {};
 };

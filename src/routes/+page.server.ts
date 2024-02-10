@@ -12,6 +12,7 @@ export const actions: Actions = {
 		// should be available as was used to create supabase!
 		const session = await getSession();
 		if (session === null) {
+			console.log('+page.server.ts no session => /signin');
 			throw redirect(301, '/signin');
 		}
 

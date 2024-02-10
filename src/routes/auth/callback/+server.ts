@@ -8,14 +8,14 @@ export const GET = async (event) => {
 		url,
 		locals: { supabase }
 	} = event;
-	console.log('/auth/callback/+server.ts', url);
 	const code = url.searchParams.get('code') as string;
 	// if "next" is in param, use it as the redirect URL
 	const next = url.searchParams.get('next') ?? '/';
 
 	if (code) {
+		console.log('/auth/callback/+server.ts about to exchange', { code, next });
 		const { error } = await supabase.auth.exchangeCodeForSession(code);
-		console.log('/auth/callback/+server.ts', { code, next, error });
+		console.log('/auth/callback/+server.ts', { error });
 		if (!error) {
 			// redirect to next, with default to "/"
 			console.log('/auth/callback/+server.ts redirecting to ', `/${next.slice(1)}`);
@@ -23,6 +23,7 @@ export const GET = async (event) => {
 		}
 	}
 
+	console.log('/auth/callback/+server.ts no code!');
 	// return the user to an error page with instructions
 	throw redirect(303, '/auth/auth-code-error');
 };

@@ -29,7 +29,7 @@
 <button on:click={signout}>Sign Out</button>
 <h1>/+page.ts: we have a session</h1>
 
-{#if player.intro === null}
+{#if player?.intro === null}
 	<h2>Player withOUT intro</h2>
 	<PostAuth {player} on:set-intro={setIntro} />
 {:else}

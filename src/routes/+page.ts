@@ -9,14 +9,13 @@ export const load: PageLoad = async ({ url, parent }) => {
 	// During a signin start, this file loaded early, but `await parent` _should_ allow supabase+session to be ready
 	const { session, supabase } = await parent();
 
-	console.log('+page.ts session?', session !== null);
-
 	if (session) {
 		return getPlayer(supabase, session).then((player) => {
 			return { player };
 		});
 	}
+	console.log('+page.ts no session => /signin');
 	// no session => need to login
-	throw redirect(301, '/signin');
+	// throw redirect(301, '/signin');
 	// return {};
 };

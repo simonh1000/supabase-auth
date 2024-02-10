@@ -34,43 +34,43 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		data: { session }
 	} = await supabase.auth.getSession();
 
-	supabase.auth.onAuthStateChange((event, session) => {
-		console.log('+layout.ts onAuthStateChange', event, session !== null);
-		if (event === 'SIGNED_OUT') {
-			location.reload();
-		}
-	});
+	// supabase.auth.onAuthStateChange((event, session) => {
+	// 	console.log('+layout.ts onAuthStateChange', event, session !== null);
+	// 	if (event === 'SIGNED_OUT') {
+	// 		location.reload();
+	// 	}
+	// });
 
-	const signIn = '/signin';
-	const isSignin = url.pathname === signIn;
-	// code occurs on the callback from the signin process
-	const isCode = url.searchParams.has('code');
+	// const signIn = '/signin';
+	// const isSignin = url.pathname === signIn;
+	// // code occurs on the callback from the signin process
+	// const isCode = url.searchParams.has('code');
 
-	console.log('+layout.ts session?', session !== null);
+	// console.log('+layout.ts session?', session !== null);
 	return { supabase, session };
 
-	if (isSignin) {
-		// On the server side, this might the return from auth with `?code=abc123`
-		// this can only be consumed by the client side so we must pass through everything
-		console.log('+layout.ts /signin');
-		return { supabase, session };
-	}
+	// if (isSignin) {
+	// 	// On the server side, this might the return from auth with `?code=abc123`
+	// 	// this can only be consumed by the client side so we must pass through everything
+	// 	console.log('+layout.ts /signin');
+	// 	return { supabase, session };
+	// }
 
-	if (session || isCode) {
-		// either we already have a session, or
-		// the code has just arrived which will be converted into a session (where?)
-		console.log('+layout.ts', { 'session?': session !== null, isCode });
-		// NOTE we do not for certain have the session here so we cannot
-		return { supabase, session };
-	}
+	// if (session || isCode) {
+	// 	// either we already have a session, or
+	// 	// the code has just arrived which will be converted into a session (where?)
+	// 	console.log('+layout.ts', { 'session?': session !== null, isCode });
+	// 	// NOTE we do not for certain have the session here so we cannot
+	// 	return { supabase, session };
+	// }
 
-	if (isSignin) {
-		// session is null
-		console.log(`+layout.ts isSignin == true`);
-		return { supabase, session };
-	}
+	// if (isSignin) {
+	// 	// session is null
+	// 	console.log(`+layout.ts isSignin == true`);
+	// 	return { supabase, session };
+	// }
 
-	// session is null, so user must login
-	console.log(`+layout.ts redirecting ${url.pathname} => ${signIn}`);
-	throw redirect(307, signIn);
+	// // session is null, so user must login
+	// console.log(`+layout.ts redirecting ${url.pathname} => ${signIn}`);
+	// throw redirect(307, signIn);
 };

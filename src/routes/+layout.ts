@@ -3,6 +3,10 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 import { createBrowserClient, isBrowser, parse } from '@supabase/ssr';
 
+// So frustrating that this makes everything work beautifully
+// but with no SSR of course
+// export const ssr = false;
+
 export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	depends('supabase:auth');
 
@@ -25,7 +29,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 		}
 	});
 
-	// note: not using the (server-side) version in hooks
+	// note: ClientSide. Not using the (server-side) version in hooks
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();

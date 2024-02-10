@@ -16,6 +16,7 @@
 			// 	redirectTo: `http://127.0.0.1:54321/auth/v1/callback`
 			// }
 		});
+		goto('/');
 		console.log('signin');
 	};
 </script>

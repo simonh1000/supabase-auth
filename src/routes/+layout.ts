@@ -1,7 +1,6 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import type { LayoutLoad } from './$types';
 import { createBrowserClient, isBrowser, parse } from '@supabase/ssr';
-import { redirect } from '@sveltejs/kit';
 
 // So frustrating that this makes everything work beautifully
 // but with no SSR of course

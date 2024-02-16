@@ -14,9 +14,9 @@ export const GET = async (event) => {
 
 	if (code) {
 		console.log('/auth/callback/+server.ts about to exchange', { code, next });
-		const { error } = await supabase.auth.exchangeCodeForSession(code);
-		console.log('/auth/callback/+server.ts', { error });
-		if (!error) {
+		const res = await supabase.auth.exchangeCodeForSession(code);
+		console.log('/auth/callback/+server.ts exchanged', Object.keys(res));
+		if (!res.error) {
 			// redirect to next, with default to "/"
 			console.log('/auth/callback/+server.ts redirecting to ', `/${next.slice(1)}`);
 			throw redirect(303, `/${next.slice(1)}`);

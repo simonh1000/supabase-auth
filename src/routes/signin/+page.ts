@@ -9,5 +9,5 @@ export const load = async (event) => {
 		throw redirect(301, '/');
 	}
 
-	return {};
+	return { session };
 };

@@ -14,8 +14,7 @@ export const load: PageLoad = async ({ url, parent }) => {
 			return { player };
 		});
 	}
-	console.log('+page.ts no session => /signin');
 	// no session => need to login
-	// throw redirect(301, '/signin');
-	// return {};
+	console.log('+page.ts no session => /signin');
+	throw redirect(301, '/signin');
 };

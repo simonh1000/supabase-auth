@@ -45,7 +45,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 	// // code occurs on the callback from the signin process
 	// const isCode = url.searchParams.has('code');
 
-	// console.log('+layout.ts session?', session !== null);
+	console.log('+layout.ts session?', session !== null);
 	return { supabase, session };
 
 	// if (isSignin) {

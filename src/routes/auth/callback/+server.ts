@@ -11,6 +11,7 @@ export const GET = async (event) => {
 	const code = url.searchParams.get('code') as string;
 	// if "next" is in param, use it as the redirect URL
 	const next = url.searchParams.get('next') ?? '/';
+	console.log('/auth/callback', { code, next });
 
 	if (code) {
 		const { error } = await supabase.auth.exchangeCodeForSession(code);
